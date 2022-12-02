@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.14",
-    "@types/kafkajs": "^1.9.0",
     "@types/node": "^18.11.10",
     "@types/nodemailer": "^6.4.6"
   }

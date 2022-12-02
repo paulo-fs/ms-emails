@@ -2,13 +2,14 @@ version: '3'
 
 networks:
   tgl-ms:
-    external: true
+    driver: bridge
 
 services:
   ms-emails:
     container_name: ms-emails
     build:
       context: .
+      dockerfile: Dockerfile
     environment:
       SMTP_HOST: smtp.mailtrap.io
       SMTP_PORT: 2525
@@ -23,7 +24,7 @@ services:
 
   zookeeper: 
     image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper-ms
+    container_name: ms-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -37,13 +38,14 @@ services:
   
   kafka:
     image: confluentinc/cp-kafka:latest
-    container_name: kafka-ms
+    user: "0:0"
+    container_name: ms-kafka
     depends_on:
       - zookeeper
     ports:
       - 9092:9092
-    volumes:
-      - ./data/kafka:/var/lib/kafka/data
+    # volumes:
+    #   - ./data/kafka:/var/lib/kafka/data
     networks:
       - tgl-ms
     environment:

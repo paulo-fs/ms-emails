@@ -7,7 +7,6 @@ app.use(express.json())
 app.use(route)
 
 route.get('/', (req, res) => {
-   console.log('teste')
    res.json({ message: 'hello world!' })
 })
 

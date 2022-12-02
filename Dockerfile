@@ -1,7 +1,12 @@
 FROM node:18
 WORKDIR /home/node/app
 COPY package*.json ./
+
+RUN chown -R node:node /home/node
+USER node
+
 RUN yarn
-COPY ./dist/src .
+COPY ./src ./src
+
 EXPOSE 3000
-CMD ["yarn", "dev"]
+ENTRYPOINT ["yarn", "dev"]
